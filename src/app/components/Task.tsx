@@ -89,7 +89,7 @@ const Task: React.FC = () => {
             id="footer"
             className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 w-full text-center py-20"
           >
-            Версия приложения: 1.0.1 <br />
+            Версия приложения: 1.0.3 <br />
             Ответы, были сделаны при помощи ChatGPT, в случае нахождения ошибки
             пишите на <a href="https://t.me/ArtV1No">@ArtV1no</a>
           </div>
