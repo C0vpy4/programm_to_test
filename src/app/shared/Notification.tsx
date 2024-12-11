@@ -1,23 +1,37 @@
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function Notification(props: { answerResult: boolean }) {
-  const { answerResult } = props;
-  return (
-    <div
-      className="flex items-center gap-2 justify-center w-2/12 h-14 rounded-full  text-white fixed bottom-4 right-4 ease-in transition-all"
-      style={{
-        background: `${!answerResult ? "red" : "green"}`,
-      }}
-    >
-      <h1
-        className="bg-white rounded-full p-2 text-center font-extrabold"
-        style={{
-          color: `${!answerResult ? "red" : "green"}`,
-        }}
-      >
-        {!answerResult ? "❌" : "✅"}
-      </h1>
-      {!answerResult ? "Неверно" : "Верно"}
-    </div>
-  );
+interface NotificationProps {
+  answerResult: boolean;
 }
+
+const Notification: React.FC<NotificationProps> = ({ answerResult }) => {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={answerResult.toString()}
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 50 }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center gap-2 justify-center w-[45px] h-[45px] lg:w-2/12 lg:h-14  md:w-2/12 md:h-14 rounded-xl lg:rounded-full text-white fixed bottom-4 right-4 ease-in-out"
+        style={{ backgroundColor: answerResult ? "green" : "red" }}
+      >
+        <div
+          className="bg-white rounded-full w-[35px] h-[35px] flex items-center justify-center text-center font-extrabold border-2"
+          style={{
+            color: answerResult ? "green" : "red",
+            borderColor: answerResult ? "green" : "red",
+          }}
+        >
+          {answerResult ? "✅" : "❌"}
+        </div>
+        <div className="hidden lg:block font-medium">
+          {answerResult ? "Верно" : "Неверно"}
+        </div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+export default Notification;

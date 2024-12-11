@@ -62,12 +62,14 @@ const Task: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="question-container"
         >
-          {/*Здесь нужно изменить тестирование на конкретный пункт в вопросе и его номер соответственно*/}
-          <h1 className="lg:text-[32px] md:text-[16px] sm:text-[14px] font-bold">
+          <h1 className="text-[34px] lg:text-[32px] md:text-[16px] sm:text-[14px] font-bold">
             {currentQuestion.question}
           </h1>
-          <h4 className="font-thin text-sm opacity-40">
+          <h4 className="text-[24px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40">
             Вопрос по {currentQuestion.type} № {currentQuestion.id}
+          </h4>
+          <h4 className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 block lg:hidden md:hidden sm:hidden w-full text-center py-5">
+            *Тапни по ответу*
           </h4>
           <div className="mt-4 flex flex-col gap-5">
             {options.map((option, index) => (
@@ -75,6 +77,11 @@ const Task: React.FC = () => {
                 <Button answer={option} />
               </div>
             ))}
+          </div>
+          <div className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 w-full text-center py-5">
+            Версия приложения: 1.0.1 <br />
+            Ответы, были сделаны при помощи ChatGPT, в случае нахождения ошибки
+            пишите на <a href="https://t.me/ArtV1No">@ArtV1no</a>
           </div>
         </motion.div>
       </AnimatePresence>
