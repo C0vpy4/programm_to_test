@@ -5,14 +5,17 @@ import { generateQuestionsWithRandomAnswers } from "../data/generateQuest";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "../shared/Button";
 import Notification from "../shared/Notification";
+import ButtonDown from "../shared/ButtonDown";
 
 const questionsWithAnswers = generateQuestionsWithRandomAnswers();
 
 const Task: React.FC = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  //   const [feedback, setFeedback] = useState<string | null>(null);
   const [answerResult, setAnswerResult] = useState<boolean | null>(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(
+    null
+  );
 
   const currentQuestion = questionsWithAnswers[currentQuestionIndex];
   const options = useMemo(() => {
@@ -22,9 +25,10 @@ const Task: React.FC = () => {
     ]);
   }, [currentQuestionIndex]);
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = (answer: string, index: number) => {
     const isCorrect = answer === currentQuestion.correctAnswer;
     setAnswerResult(isCorrect);
+    setSelectedAnswerIndex(index);
     setShowNotification(true);
 
     if (isCorrect) {
@@ -33,26 +37,20 @@ const Task: React.FC = () => {
           prev + 1 < questionsWithAnswers.length ? prev + 1 : 0
         );
         setShowNotification(false);
+        setSelectedAnswerIndex(null);
       }, 1000);
     } else {
-      setTimeout(() => setShowNotification(false), 3000);
+      setTimeout(() => {
+        setShowNotification(false);
+        setSelectedAnswerIndex(null);
+      }, 3000);
     }
   };
 
-  //   useEffect(() => {
-  //     if (showNotification) {
-  //       const timer = setTimeout(() => {
-  //         setShowNotification(false);
-  //         setAnswerResult(null);
-  //       }, 3000);
-
-  //       return () => clearTimeout(timer);
-  //     }
-  //   }, [showNotification]);
-
   return (
-    <div className="w-[85%] font-comfortaa z-10">
-      {/* <Notification /> */}
+    <div className="w-[85%] font-comfortaa z-10 relative">
+      <ButtonDown />
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentQuestionIndex}
@@ -66,19 +64,31 @@ const Task: React.FC = () => {
             {currentQuestion.question}
           </h1>
           <h4 className="text-[24px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40">
-            Вопрос по {currentQuestion.type} № {currentQuestion.id}
+            Вопрос по тестированию № {currentQuestionIndex + 1}
           </h4>
           <h4 className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 block lg:hidden md:hidden sm:hidden w-full text-center py-5">
             *Тапни по ответу*
           </h4>
           <div className="mt-4 flex flex-col gap-5">
             {options.map((option, index) => (
-              <div key={index} onClick={() => handleAnswer(option)}>
-                <Button answer={option} />
+              <div key={index} onClick={() => handleAnswer(option, index)}>
+                <Button
+                  answer={option}
+                  borderColor={
+                    selectedAnswerIndex === index
+                      ? answerResult
+                        ? "green"
+                        : "red"
+                      : "black"
+                  }
+                />
               </div>
             ))}
           </div>
-          <div className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 w-full text-center py-5">
+          <div
+            id="footer"
+            className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 w-full text-center py-20"
+          >
             Версия приложения: 1.0.1 <br />
             Ответы, были сделаны при помощи ChatGPT, в случае нахождения ошибки
             пишите на <a href="https://t.me/ArtV1No">@ArtV1no</a>
