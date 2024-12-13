@@ -7,8 +7,11 @@ export default function Burger() {
   const [isClicked, setBooleanClick] = useState(false);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest(".burger-container")) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        !(event.target instanceof HTMLElement) ||
+        !event.target.closest(".burger-container")
+      ) {
         setBooleanClick(false);
       }
     };
