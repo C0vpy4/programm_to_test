@@ -14,6 +14,7 @@ export default {
       },
       fontFamily: {
         comfortaa: ["Comfortaa", "sans-serif"],
+        stetica: ["Stetica", "sans-serif"],
       },
     },
   },

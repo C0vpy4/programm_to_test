@@ -6,12 +6,13 @@ import Link from "next/link";
 export default function ButtonDown() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 50 }}
+      whileTap={{ scale: 0.5 }}
+      initial={{ opacity: 0, y: 50, x: -20 }}
+      animate={{ opacity: 1, y: 0, x: 0 }}
+      exit={{ opacity: 0, y: 50, x: 20 }}
       transition={{ duration: 1 }}
       className="bg-black w-[70px] h-[70px] rounded-full fixed bottom-32 right-4
-      cursor-pointer hover:scale-105 flex items-center justify-center"
+      cursor-pointer hover:scale-105 flex items-center justify-center z-20"
     >
       <Link href="#footer" className="w-screen h-full  p-3">
         <Image

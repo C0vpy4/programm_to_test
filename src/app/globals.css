@@ -21,3 +21,8 @@ body {
   font-family: "Comfortaa";
   src: url("/fonts/Comfortaa-VariableFont_wght.ttf");
 }
+
+@font-face {
+  font-family: "Stetica";
+  src: url("/fonts/AA Stetica Regular.otf");
+}
