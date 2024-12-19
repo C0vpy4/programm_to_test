@@ -1,10 +1,22 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Burger() {
   const [isClicked, setBooleanClick] = useState(false);
+  const [isOnQuestionsPage, setIsOnQuestionsPage] = useState(false);
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    if (isOnQuestionsPage) {
+      router.push("/");
+    } else {
+      router.push("/questions");
+    }
+    setIsOnQuestionsPage(!isOnQuestionsPage);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -66,10 +78,14 @@ export default function Burger() {
                 Проектирование
               </div>
               <div className="cursor-pointer hover:underline hover:pl-2 hover:opacity-100 opacity-55 ease-in transition-all">
-                Философия
-              </div>
-              <div className="cursor-pointer hover:underline hover:pl-2 hover:opacity-100 opacity-55 ease-in transition-all">
                 Проектная деятельность
+              </div>
+              <div
+                className="cursor-pointer hover:underline hover:pl-2 hover:opacity-100 opacity-55 ease-in transition-all"
+                onClick={handleNavigation}
+              >
+                <hr />
+                {isOnQuestionsPage ? "Вернуться назад" : "Вопросы"}
               </div>
             </div>
           </motion.div>

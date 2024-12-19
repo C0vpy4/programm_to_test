@@ -38,7 +38,7 @@ const Task: React.FC = () => {
         );
         setShowNotification(false);
         setSelectedAnswerIndex(null);
-      }, 1000);
+      }, 3000);
     } else {
       setTimeout(() => {
         setShowNotification(false);
@@ -64,7 +64,7 @@ const Task: React.FC = () => {
             {currentQuestion.question}
           </h1>
           <h4 className="text-[24px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40">
-            Вопрос по тестированию № {currentQuestionIndex + 1}
+            Вопрос по тестированию № {currentQuestion.id}
           </h4>
           <h4 className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 block lg:hidden md:hidden sm:hidden w-full text-center py-5">
             *Тапни по ответу*
@@ -89,7 +89,7 @@ const Task: React.FC = () => {
             id="footer"
             className="text-[16px] font-thin lg:text-sm md:text-[10px] sm:text-[8px] opacity-40 w-full text-center py-20"
           >
-            Версия приложения: 1.0.4 <br />
+            Версия приложения: 1.0.5 <br />
             Ответы, были сделаны при помощи ChatGPT, в случае нахождения ошибки
             пишите на <a href="https://t.me/ArtV1No">@ArtV1no</a>
           </div>
